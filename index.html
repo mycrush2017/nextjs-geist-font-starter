@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BibleMee - Interactive Bible Study for all ages. Explore the Bible through study tools, devotionals, and audio content.">
+    <title>BibleMee - Interactive Bible Study</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #4a5568;
+            --accent: #3182ce;
+            --background: #ffffff;
+            --text: #2d3748;
+            --error: #e53e3e;
+            --success: #38a169;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--background);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.75rem; }
+        h4 { font-size: 1.5rem; }
+
+        p { margin-bottom: 1rem; }
+
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--background);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 4rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Language Switcher */
+        .language-select {
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            background-color: var(--background);
+            color: var(--text);
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        .language-select:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                            url('https://images.pexels.com/photos/267559/pexels-photo-267559.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2c5282;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 0;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(49,130,206,0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">BibleMee</a>
+            <nav class="nav-links">
+                <select class="language-select" id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                    <option value="es">Español</option>
+                    <option value="ht">Kreyòl Ayisyen</option>
+                </select>
+                <a href="#old-testament" data-i18n="nav.oldTestament">Old Testament</a>
+                <a href="#new-testament" data-i18n="nav.newTestament">New Testament</a>
+                <a href="#bible-study" data-i18n="nav.bibleStudy">Bible Study</a>
+                <a href="#donate" data-i18n="nav.donate">Donate</a>
+                <a href="#contact" data-i18n="nav.contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 data-i18n="hero.title">Welcome to BibleMee</h1>
+            <p data-i18n="hero.subtitle">Explore the Bible through interactive study tools, devotionals, and audio content. Perfect for both kids and adults.</p>
+            <div class="hero-buttons">
+                <a href="#old-testament" class="btn btn-primary" data-i18n="hero.cta1">Start Reading</a>
+                <a href="#bible-study" class="btn btn-outline" data-i18n="hero.cta2">Study Resources</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Old Testament Section -->
+    <section id="old-testament">
+        <div class="container">
+            <h2 data-i18n="oldTestament.title">Old Testament</h2>
+            <div class="grid">
+                <!-- Sample Testament Content -->
+                <div class="card">
+                    <h3>Genesis</h3>
+                    <p>In the beginning God created the heavens and the earth...</p>
+                    <audio controls>
+                        <source src="https://example.com/audio/genesis-1.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <!-- More books will be added dynamically via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- New Testament Section -->
+    <section id="new-testament">
+        <div class="container">
+            <h2 data-i18n="newTestament.title">New Testament</h2>
+            <div class="grid">
+                <!-- Sample Testament Content -->
+                <div class="card">
+                    <h3>Matthew</h3>
+                    <p>The book of the genealogy of Jesus Christ, the son of David...</p>
+                    <audio controls>
+                        <source src="https://example.com/audio/matthew-1.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <!-- More books will be added dynamically via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Bible Study Section -->
+    <section id="bible-study">
+        <div class="container">
+            <h2 data-i18n="bibleStudy.title">Bible Study Resources</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 data-i18n="bibleStudy.devotional.title">Daily Devotional</h3>
+                    <p data-i18n="bibleStudy.devotional.text">Start your day with inspiring devotionals...</p>
+                    <a href="#" class="btn btn-primary" data-i18n="bibleStudy.devotional.cta">Read More</a>
+                </div>
+                <div class="card">
+                    <h3 data-i18n="bibleStudy.guides.title">Study Guides</h3>
+                    <p data-i18n="bibleStudy.guides.text">Comprehensive guides for deeper understanding...</p>
+                    <a href="#" class="btn btn-primary" data-i18n="bibleStudy.guides.cta">View Guides</a>
+                </div>
+                <div class="card">
+                    <h3 data-i18n="bibleStudy.kids.title">Kids Corner</h3>
+                    <p data-i18n="bibleStudy.kids.text">Fun and interactive Bible lessons for children...</p>
+                    <a href="#" class="btn btn-primary" data-i18n="bibleStudy.kids.cta">Explore</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate Section -->
+    <section id="donate">
+        <div class="container">
+            <h2 data-i18n="donate.title">Support Our Mission</h2>
+            <div class="card">
+                <form id="donateForm" class="form-group">
+                    <div class="form-group">
+                        <label for="amount" data-i18n="donate.amount">Amount</label>
+                        <input type="number" id="amount" class="form-control" required min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentMethod" data-i18n="donate.method">Payment Method</label>
+                        <select id="paymentMethod" class="form-control">
+                            <option value="card" data-i18n="donate.card">Credit Card</option>
+                            <option value="paypal" data-i18n="donate.paypal">PayPal</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" data-i18n="donate.submit">Donate Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 data-i18n="contact.title">Contact Us</h2>
+            <div class="card">
+                <form id="contactForm" class="form-group">
+                    <div class="form-group">
+                        <label for="name" data-i18n="contact.name">Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" data-i18n="contact.email">Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" data-i18n="contact.message">Message</label>
+                        <textarea id="message" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" data-i18n="contact.submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-links">
+                    <h4 data-i18n="footer.quickLinks">Quick Links</h4>
+                    <ul>
+                        <li><a href="#old-testament" data-i18n="nav.oldTestament">Old Testament</a></li>
+                        <li><a href="#new-testament" data-i18n="nav.newTestament">New Testament</a></li>
+                        <li><a href="#bible-study" data-i18n="nav.bibleStudy">Bible Study</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footer.resources">Resources</h4>
+                    <ul>
+                        <li><a href="#" data-i18n="footer.devotionals">Daily Devotionals</a></li>
+                        <li><a href="#" data-i18n="footer.studyGuides">Study Guides</a></li>
+                        <li><a href="#" data-i18n="footer.kids">Kids Corner</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footer.connect">Connect</h4>
+                    <ul>
+                        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+                        <li><a href="#donate" data-i18n="nav.donate">Donate</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1)">
+                <p>&copy; 2024 BibleMee. <span data-i18n="footer.copyright">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translations
+        const translations = {
+            en: {
+                'nav.oldTestament': 'Old Testament',
+                'nav.newTestament': 'New Testament',
+                'nav.bibleStudy': 'Bible Study',
+                'nav.donate': 'Donate',
+                'nav.contact': 'Contact',
+                'hero.title': 'Welcome to BibleMee',
+                'hero.subtitle': 'Explore the Bible through interactive study tools, devotionals, and audio content. Perfect for both kids and adults.',
+                'hero.cta1': 'Start Reading',
+                'hero.cta2': 'Study Resources',
+                'oldTestament.title': 'Old Testament',
+                'newTestament.title': 'New Testament',
+                'bibleStudy.title': 'Bible Study Resources',
+                'bibleStudy.devotional.title': 'Daily Devotional',
+                'bibleStudy.devotional.text': 'Start your day with inspiring devotionals...',
+                'bibleStudy.devotional.cta': 'Read More',
+                'bibleStudy.guides.title': 'Study Guides',
+                'bibleStudy.guides.text': 'Comprehensive guides for deeper understanding...',
+                'bibleStudy.guides.cta': 'View Guides',
+                'bibleStudy.kids.title': 'Kids Corner',
+                'bibleStudy.kids.text': 'Fun and interactive Bible lessons for children...',
+                'bibleStudy.kids.cta': 'Explore',
+                'donate.title': 'Support Our Mission',
+                'donate.amount': 'Amount',
+                'donate.method': 'Payment Method',
+                'donate.card': 'Credit Card',
+                'donate.paypal': 'PayPal',
+                'donate.submit': 'Donate Now',
+                'contact.title': 'Contact Us',
+                'contact.name': 'Name',
+                'contact.email': 'Email',
+                'contact.message': 'Message',
+                'contact.submit': 'Send Message',
+                'footer.quickLinks': 'Quick Links',
+                'footer.resources': 'Resources',
+                'footer.connect': 'Connect',
+                'footer.devotionals': 'Daily Devotionals',
+                'footer.studyGuides': 'Study Guides',
+                'footer.kids': 'Kids Corner',
+                'footer.copyright': 'All rights reserved.'
+            },
+            fr: {
+                'nav.oldTestament': 'Ancien Testament',
+                'nav.newTestament': 'Nouveau Testament',
+                'nav.bibleStudy': 'Étude Biblique',
+                'nav.donate': 'Faire un Don',
+                'nav.contact': 'Contact',
+                'hero.title': 'Bienvenue sur BibleMee',
+                'hero.subtitle': 'Explorez la Bible à travers des outils d\'étude interactifs, des dévotions et du contenu audio. Parfait pour les enfants et les adultes.',
+                'hero.cta1': 'Commencer la Lecture',
+                'hero.cta2': 'Ressources d\'Étude',
+                'oldTestament.title': 'Ancien Testament',
+                'newTestament.title': 'Nouveau Testament',
+                'bibleStudy.title': 'Ressources d\'Étude Biblique',
+                'bibleStudy.devotional.title': 'Dévotion Quotidienne',
+                'bibleStudy.devotional.text': 'Commencez votre journée avec des dévotions inspirantes...',
+                'bibleStudy.devotional.cta': 'Lire Plus',
+                'bibleStudy.guides.title': 'Guides d\'Étude',
+                'bibleStudy.guides.text': 'Guides complets pour une compréhension plus profonde...',
+                'bibleStudy.guides.cta': 'Voir les Guides',
+                'bibleStudy.kids.title': 'Espace Enfants',
+                'bibleStudy.kids.text': 'Leçons bibliques amusantes et interactives pour les enfants...',
+                'bibleStudy.kids.cta': 'Explorer',
+                'donate.title': 'Soutenez Notre Mission',
+                'donate.amount': 'Montant',
+                'donate.method': 'Méthode de Paiement',
+                'donate.card': 'Carte de Crédit',
+                'donate.paypal': 'PayPal',
+                'donate.submit': 'Faire un Don',
+                'contact.title': 'Contactez-nous',
+                'contact.name': 'Nom',
+                'contact.email': 'Email',
+                'contact.message': 'Message',
+                'contact.submit': 'Envoyer le Message',
+                'footer.quickLinks': 'Liens Rapides',
+                'footer.resources': 'Ressources',
+                'footer.connect': 'Connexion',
+                'footer.devotionals': 'Dévotions Quotidiennes',
+                'footer.studyGuides': 'Guides d\'Étude',
+                'footer.kids': 'Espace Enfants',
+                'footer.copyright': 'Tous droits réservés.'
+            },
+            es: {
+                'nav.oldTestament': 'Antiguo Testamento',
+                'nav.newTestament': 'Nuevo Testamento',
+                'nav.bibleStudy': 'Estudio Bíblico',
+                'nav.donate': 'Donar',
+                'nav.contact': 'Contacto',
+                'hero.title': 'Bienvenido a BibleMee',
+                'hero.subtitle': 'Explora la Biblia a través de herramientas de estudio interactivas, devocionales y contenido de audio. Perfecto para niños y adultos.',
+                'hero.cta1': 'Empezar a Leer',
+                'hero.cta2': 'Recursos de Estudio',
+                'oldTestament.title': 'Antiguo Testamento',
+                'newTestament.title': 'Nuevo Testamento',
+                'bibleStudy.title': 'Recursos de Estudio Bíblico',
+                'bibleStudy.devotional.title': 'Devocional Diario',
+                'bibleStudy.devotional.text': 'Comienza tu día con devocionales inspiradores...',
+                'bibleStudy.devotional.cta': 'Leer Más',
+                'bibleStudy.guides.title': 'Guías de Estudio',
+                'bibleStudy.guides.text': 'Guías completas para una comprensión más profunda...',
+                'bibleStudy.guides.cta': 'Ver Guías',
+                'bibleStudy.kids.title': 'Rincón Infantil',
+                'bibleStudy.kids.text': 'Lecciones bíblicas divertidas e interactivas para niños...',
+                'bibleStudy.kids.cta': 'Explorar',
+                'donate.title': 'Apoya Nuestra Misión',
+                'donate.amount': 'Cantidad',
+                'donate.method': 'Método de Pago',
+                'donate.card': 'Tarjeta de Crédito',
+                'donate.paypal': 'PayPal',
+                'donate.submit': 'Donar Ahora',
+                'contact.title': 'Contáctanos',
+                'contact.name': 'Nombre',
+                'contact.email': 'Correo',
+                'contact.message': 'Mensaje',
+                'contact.submit': 'Enviar Mensaje',
+                'footer.quickLinks': 'Enlaces Rápidos',
+                'footer.resources': 'Recursos',
+                'footer.connect': 'Conectar',
+                'footer.devotionals': 'Devocionales Diarios',
+                'footer.studyGuides': 'Guías de Estudio',
+                'footer.kids': 'Rincón Infantil',
+                'footer.copyright': 'Todos los derechos reservados.'
+            },
+            ht: {
+                'nav.oldTestament': 'Ansyen Testaman',
+                'nav.newTestament': 'Nouvo Testaman',
+                'nav.bibleStudy': 'Etid Bib',
+                'nav.donate': 'Fè yon Don',
+                'nav.contact': 'Kontakte',
+                'hero.title': 'Byenveni nan BibleMee',
+                'hero.subtitle': 'Eksplore Bib la atravè zouti etid entèraktif, devosyonèl, ak kontni odyo. Pafè pou timoun ak granmoun.',
+                'hero.cta1': 'Kòmanse Li',
+                'hero.cta2': 'Resous Etid',
+                'oldTestament.title': 'Ansyen Testaman',
+                'newTestament.title': 'Nouvo Testaman',
+                'bibleStudy.title': 'Resous Etid Bib',
+                'bibleStudy.devotional.title': 'Devosyonèl Chak Jou',
+                'bibleStudy.devotional.text': 'Kòmanse jounen w ak devosyonèl ki enspire...',
+                'bibleStudy.devotional.cta': 'Li Plis',
+                'bibleStudy.guides.title': 'Gid Etid',
+                'bibleStudy.guides.text': 'Gid konplè pou konpreyansyon pi pwofon...',
+                'bibleStudy.guides.cta': 'Gade Gid yo',
+                'bibleStudy.kids.title': 'Kwen Timoun',
+                'bibleStudy.kids.text': 'Leson Bib amizan ak entèraktif pou timoun...',
+                'bibleStudy.kids.cta': 'Eksplore',
+                'donate.title': 'Sipòte Misyon Nou',
+                'donate.amount': 'Kantite',
+                'donate.method': 'Metòd Peman',
+                'donate.card': 'Kat Kredi',
+                'donate.paypal': 'PayPal',
+                'donate.submit': 'Fè Don Kounye a',
+                'contact.title': 'Kontakte Nou',
+                'contact.name': 'Non',
+                'contact.email': 'Imèl',
+                'contact.message': 'Mesaj',
+                'contact.submit': 'Voye Mesaj',
+                'footer.quickLinks': 'Lyen Rapid',
+                'footer.resources': 'Resous',
+                'footer.connect': 'Konekte',
+                'footer.devotionals': 'Devosyonèl Chak Jou',
+                'footer.studyGuides': 'Gid Etid',
+                'footer.kids': 'Kwen Timoun',
+                'footer.copyright': 'Tout dwa rezève.'
+            }
+        };
+
+        // Language Switching
+        function updateLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            localStorage.setItem('language', lang);
+        }
+
+        // Initialize language
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('language') || 'en';
+            const languageSelect = document.getElementById('languageSelect');
+            languageSelect.value = savedLang;
+            updateLanguage(savedLang);
+
+            // Language switcher event listener
+            languageSelect.addEventListener('change', (e) => {
+                updateLanguage(e.target.value);
+            });
+
+            // Form validation
+            const contactForm = document.getElementById('contactForm');
+            const donateForm = document.getElementById('donateForm');
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Add your contact form submission logic here
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            });
+
+            donateForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Add your donation form submission logic here
+                alert('Thank you for your generous donation!');
+                donateForm.reset();
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
