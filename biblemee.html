@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BibleMee - Interactive Bible Study Platform">
+    <title>BibleMee - Interactive Bible Study</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#7C3AED',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <header class="fixed w-full bg-white shadow-sm z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                BibleMee
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <!-- Language Switcher -->
+                <select id="languageSelect" class="form-select rounded-lg border-gray-300 focus:border-primary focus:ring-primary">
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                    <option value="es">Español</option>
+                    <option value="ht">Kreyòl Ayisyen</option>
+                </select>
+                
+                <!-- Navigation Links -->
+                <a href="#old-testament" class="text-gray-600 hover:text-primary transition-colors">Old Testament</a>
+                <a href="#new-testament" class="text-gray-600 hover:text-primary transition-colors">New Testament</a>
+                <a href="#bible-study" class="text-gray-600 hover:text-primary transition-colors">Bible Study</a>
+                <a href="#donate" class="text-gray-600 hover:text-primary transition-colors">Donate</a>
+                <a href="#contact" class="text-gray-600 hover:text-primary transition-colors">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Welcome to BibleMee</h1>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Explore the Bible through interactive study tools, devotionals, and audio content.
+                Perfect for both kids and adults.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#study" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Start Reading
+                </a>
+                <a href="#resources" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors">
+                    Study Resources
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-8">Search the Bible</h2>
+                <div class="flex gap-4">
+                    <input type="search" 
+                           placeholder="Search for verses, chapters..." 
+                           class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-primary">
+                    <button class="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Content -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">Featured Content</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+                Discover our most popular Bible study resources and interactive content
+            </p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Daily Devotional -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <img src="https://images.pexels.com/photos/267559/pexels-photo-267559.jpeg" 
+                         alt="Daily Devotional" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Daily Devotional</h3>
+                        <p class="text-gray-600 mb-4">Start your day with inspiring devotionals and reflections.</p>
+                        <a href="#" class="text-primary font-semibold hover:text-primary/80 transition-colors">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Study Guides -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <img src="https://images.pexels.com/photos/267559/pexels-photo-267559.jpeg" 
+                         alt="Study Guides" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Study Guides</h3>
+                        <p class="text-gray-600 mb-4">Comprehensive guides for deeper understanding of the Bible.</p>
+                        <a href="#" class="text-primary font-semibold hover:text-primary/80 transition-colors">
+                            View Guides →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kids Corner -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <img src="https://images.pexels.com/photos/267559/pexels-photo-267559.jpeg" 
+                         alt="Kids Corner" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Kids Corner</h3>
+                        <p class="text-gray-600 mb-4">Fun and interactive Bible lessons designed for children.</p>
+                        <a href="#" class="text-primary font-semibold hover:text-primary/80 transition-colors">
+                            Start Learning →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bible Activities -->
+    <section class="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">Fun Bible Activities</h2>
+            <p class="text-center mb-12 max-w-2xl mx-auto">
+                Interactive games, puzzles, and stories designed specifically for children
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Games -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 text-center">
+                    <h3 class="text-xl font-semibold mb-4">Bible Games</h3>
+                    <p class="mb-6">Fun and educational games based on Bible stories</p>
+                    <button class="bg-white text-primary px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Play Now
+                    </button>
+                </div>
+
+                <!-- Puzzles -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 text-center">
+                    <h3 class="text-xl font-semibold mb-4">Bible Puzzles</h3>
+                    <p class="mb-6">Engaging puzzles to test your Bible knowledge</p>
+                    <button class="bg-white text-primary px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Try Puzzles
+                    </button>
+                </div>
+
+                <!-- Stories -->
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 text-center">
+                    <h3 class="text-xl font-semibold mb-4">Bible Stories</h3>
+                    <p class="mb-6">Interactive stories from the Bible</p>
+                    <button class="bg-white text-primary px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Read Stories
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Support Our Mission</h2>
+            <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+                Help us spread God's word by supporting our mission. Your contribution makes a difference.
+            </p>
+            <a href="#donate" class="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+                Donate Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#old-testament" class="text-gray-400 hover:text-white transition-colors">Old Testament</a></li>
+                        <li><a href="#new-testament" class="text-gray-400 hover:text-white transition-colors">New Testament</a></li>
+                        <li><a href="#bible-study" class="text-gray-400 hover:text-white transition-colors">Bible Study</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Daily Devotionals</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Study Guides</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Kids Corner</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#donate" class="text-gray-400 hover:text-white transition-colors">Donate</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to receive daily devotionals and updates</p>
+                    <form class="flex gap-2">
+                        <input type="email" 
+                               placeholder="Your email" 
+                               class="flex-1 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:border-primary focus:ring-primary">
+                        <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="text-center pt-8 border-t border-gray-800">
+                <p class="text-gray-400">&copy; 2024 BibleMee. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language switching functionality
+        const translations = {
+            en: {
+                'nav.oldTestament': 'Old Testament',
+                'nav.newTestament': 'New Testament',
+                // ... (rest of English translations)
+            },
+            fr: {
+                'nav.oldTestament': 'Ancien Testament',
+                'nav.newTestament': 'Nouveau Testament',
+                // ... (rest of French translations)
+            },
+            es: {
+                'nav.oldTestament': 'Antiguo Testamento',
+                'nav.newTestament': 'Nuevo Testamento',
+                // ... (rest of Spanish translations)
+            },
+            ht: {
+                'nav.oldTestament': 'Ansyen Testaman',
+                'nav.newTestament': 'Nouvo Testaman',
+                // ... (rest of Haitian Creole translations)
+            }
+        };
+
+        // Initialize language
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('language') || 'en';
+            const languageSelect = document.getElementById('languageSelect');
+            
+            // Set initial language
+            languageSelect.value = savedLang;
+            updateLanguage(savedLang);
+
+            // Language switcher event listener
+            languageSelect.addEventListener('change', (e) => {
+                const newLang = e.target.value;
+                updateLanguage(newLang);
+                localStorage.setItem('language', newLang);
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+
+        function updateLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+    </script>
+</body>
+</html>
