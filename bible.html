@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BibleMee - Interactive Bible Study Platform">
+    <title>BibleMee - Interactive Bible Study</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --secondary: #7C3AED;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --background: #F9FAFB;
+            --white: #FFFFFF;
+            --border: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            padding: 6rem 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,255,255,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Search Section */
+        .search-section {
+            padding: 4rem 0;
+            background: var(--white);
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Language Selector */
+        .language-select-container {
+            position: relative;
+            margin-right: 1rem;
+            z-index: 1000;
+        }
+
+        .language-select {
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            background-color: var(--white);
+            color: var(--text);
+            font-size: 0.875rem;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 0.75rem;
+            min-width: 140px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .language-select:hover {
+            border-color: var(--primary);
+        }
+
+        .language-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+        }
+
+        .language-select option {
+            padding: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Bible Content Styles */
+        #bible-content {
+            padding: 2rem 0;
+            min-height: 400px;
+        }
+
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+
+        .book-card {
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        .book-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .book-card p {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .chapter-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        .chapter-btn {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chapter-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .verse-list {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .verse-container {
+            background: var(--white);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .verse-content {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .verse-number {
+            color: var(--primary);
+            font-weight: 600;
+            min-width: 2rem;
+        }
+
+        .verse-text {
+            flex: 1;
+            line-height: 1.6;
+        }
+
+        .audio-player {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .audio-player audio {
+            width: 100%;
+            height: 40px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            background: var(--text-light);
+            color: var(--white);
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 2rem;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--text);
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 2rem;
+            color: #ef4444;
+            background: #fee2e2;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-links h4 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.75rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        :focus {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        :focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo">BibleMee</a>
+            <div class="nav-links">
+                <div class="language-select-container">
+                    <select class="language-select" id="languageSelect" aria-label="Select Language" onchange="updateLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                    <option value="es">Español</option>
+                    <option value="ht">Kreyòl Ayisyen</option>
+                    </select>
+                </div>
+                <a href="#" id="oldTestamentBtn" class="nav-link" data-i18n="nav.oldTestament">Old Testament</a>
+                <a href="#" id="newTestamentBtn" class="nav-link" data-i18n="nav.newTestament">New Testament</a>
+                <a href="#bible-study" class="nav-link" data-i18n="nav.bibleStudy">Bible Study</a>
+                <a href="#donate" class="nav-link" data-i18n="nav.donate">Donate</a>
+                <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content animate-fade-in">
+                    <h1 data-i18n="hero.title">Welcome to BibleMee</h1>
+                    <p data-i18n="hero.subtitle">Explore the Bible through interactive study tools, devotionals, and audio content. Perfect for both kids and adults.</p>
+                    <div class="hero-buttons">
+                        <a href="#study" class="btn btn-primary" data-i18n="hero.cta1">Start Reading</a>
+                        <a href="#resources" class="btn btn-outline" data-i18n="hero.cta2">Study Resources</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="search-section">
+            <div class="container">
+                <div class="search-container">
+                    <h2 class="section-title" data-i18n="search.title">Search the Bible</h2>
+                    <div class="search-box">
+                        <input type="search" 
+                               class="search-input"
+                               placeholder="Search for verses, chapters..."
+                               aria-label="Search the Bible">
+                        <button class="btn btn-primary" data-i18n="search.button">Search</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2 data-i18n="featured.title">Featured Content</h2>
+                    <p data-i18n="featured.subtitle">Discover our most popular Bible study resources</p>
+                </div>
+                <div class="card-grid">
+                    <article class="card">
+                        <img src="https://images.pexels.com/photos/267559/pexels-photo-267559.jpeg" 
+                             alt="Daily Devotional"
+                             class="card-image">
+                        <div class="card-content">
+                            <h3 data-i18n="featured.card1.title">Daily Devotional</h3>
+                            <p data-i18n="featured.card1.text">Start your day with inspiring devotionals and reflections.</p>
+                            <a href="#" class="btn btn-primary" data-i18n="featured.card1.cta">Read More</a>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <img src="https://images.pexels.com/photos/267559/pexels-photo-267559.jpeg" 
+                             alt="Study Guides"
+                             class="card-image">
+                        <div class="card-content">
+                            <h3 data-i18n="featured.card2.title">Study Guides</h3>
+                            <p data-i18n="featured.card2.text">Comprehensive guides for deeper understanding of the Bible.</p>
+                            <a href="#" class="btn btn-primary" data-i18n="featured.card2.cta">View Guides</a>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <img src="https://images.pexels.com/photos/267559/pexels-photo-267559.jpeg" 
+                             alt="Kids Corner"
+                             class="card-image">
+                        <div class="card-content">
+                            <h3 data-i18n="featured.card3.title">Kids Corner</h3>
+                            <p data-i18n="featured.card3.text">Fun and interactive Bible lessons designed for children.</p>
+                            <a href="#" class="btn btn-primary" data-i18n="featured.card3.cta">Start Learning</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div id="bible-content">
+                    <!-- Bible content will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-links">
+                    <h4 data-i18n="footer.quickLinks">Quick Links</h4>
+                    <ul>
+                        <li><a href="#old-testament" data-i18n="nav.oldTestament">Old Testament</a></li>
+                        <li><a href="#new-testament" data-i18n="nav.newTestament">New Testament</a></li>
+                        <li><a href="#bible-study" data-i18n="nav.bibleStudy">Bible Study</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footer.resources">Resources</h4>
+                    <ul>
+                        <li><a href="#" data-i18n="footer.devotionals">Daily Devotionals</a></li>
+                        <li><a href="#" data-i18n="footer.studyGuides">Study Guides</a></li>
+                        <li><a href="#" data-i18n="footer.kids">Kids Corner</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footer.connect">Connect</h4>
+                    <ul>
+                        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+                        <li><a href="#donate" data-i18n="nav.donate">Donate</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BibleMee. <span data-i18n="footer.copyright">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/bible.js"></script>
+    <script>
+        // Translations
+        const translations = {
+            en: {
+                'nav.oldTestament': 'Old Testament',
+                'nav.newTestament': 'New Testament',
+                'nav.bibleStudy': 'Bible Study',
+                'nav.donate': 'Donate',
+                'nav.contact': 'Contact',
+                'hero.title': 'Welcome to BibleMee',
+                'hero.subtitle': 'Explore the Bible through interactive study tools, devotionals, and audio content. Perfect for both kids and adults.',
+                'hero.cta1': 'Start Reading',
+                'hero.cta2': 'Study Resources',
+                'search.title': 'Search the Bible',
+                'search.button': 'Search',
+                'featured.title': 'Featured Content',
+                'featured.subtitle': 'Discover our most popular Bible study resources',
+                'featured.card1.title': 'Daily Devotional',
+                'featured.card1.text': 'Start your day with inspiring devotionals and reflections.',
+                'featured.card1.cta': 'Read More',
+                'featured.card2.title': 'Study Guides',
+                'featured.card2.text': 'Comprehensive guides for deeper understanding of the Bible.',
+                'featured.card2.cta': 'View Guides',
+                'featured.card3.title': 'Kids Corner',
+                'featured.card3.text': 'Fun and interactive Bible lessons designed for children.',
+                'featured.card3.cta': 'Start Learning',
+                'footer.quickLinks': 'Quick Links',
+                'footer.resources': 'Resources',
+                'footer.connect': 'Connect',
+                'footer.devotionals': 'Daily Devotionals',
+                'footer.studyGuides': 'Study Guides',
+                'footer.kids': 'Kids Corner',
+                'footer.copyright': 'All rights reserved.'
+            },
+            fr: {
+                'nav.oldTestament': 'Ancien Testament',
+                'nav.newTestament': 'Nouveau Testament',
+                'nav.bibleStudy': 'Étude Biblique',
+                'nav.donate': 'Faire un Don',
+                'nav.contact': 'Contact',
+                'hero.title': 'Bienvenue sur BibleMee',
+                'hero.subtitle': 'Explorez la Bible à travers des outils d\'étude interactifs, des dévotions et du contenu audio. Parfait pour les enfants et les adultes.',
+                'hero.cta1': 'Commencer la Lecture',
+                'hero.cta2': 'Ressources d\'Étude',
+                'search.title': 'Rechercher dans la Bible',
+                'search.button': 'Rechercher',
+                'featured.title': 'Contenu en Vedette',
+                'featured.subtitle': 'Découvrez nos ressources d\'étude biblique les plus populaires',
+                'featured.card1.title': 'Dévotion Quotidienne',
+                'featured.card1.text': 'Commencez votre journée avec des dévotions inspirantes.',
+                'featured.card1.cta': 'Lire Plus',
+                'featured.card2.title': 'Guides d\'Étude',
+                'featured.card2.text': 'Guides complets pour une compréhension plus profonde de la Bible.',
+                'featured.card2.cta': 'Voir les Guides',
+                'featured.card3.title': 'Espace Enfants',
+                'featured.card3.text': 'Leçons bibliques amusantes et interactives pour les enfants.',
+                'featured.card3.cta': 'Commencer',
+                'footer.quickLinks': 'Liens Rapides',
+                'footer.resources': 'Ressources',
+                'footer.connect': 'Connexion',
+                'footer.devotionals': 'Dévotions Quotidiennes',
+                'footer.studyGuides': 'Guides d\'Étude',
+                'footer.kids': 'Espace Enfants',
+                'footer.copyright': 'Tous droits réservés.'
+            },
+            es: {
+                'nav.oldTestament': 'Antiguo Testamento',
+                'nav.newTestament': 'Nuevo Testamento',
+                'nav.bibleStudy': 'Estudio Bíblico',
+                'nav.donate': 'Donar',
+                'nav.contact': 'Contacto',
+                'hero.title': 'Bienvenido a BibleMee',
+                'hero.subtitle': 'Explora la Biblia a través de herramientas de estudio interactivas, devocionales y contenido de audio. Perfecto para niños y adultos.',
+                'hero.cta1': 'Empezar a Leer',
+                'hero.cta2': 'Recursos de Estudio',
+                'search.title': 'Buscar en la Biblia',
+                'search.button': 'Buscar',
+                'featured.title': 'Contenido Destacado',
+                'featured.subtitle': 'Descubre nuestros recursos de estudio bíblico más populares',
+                'featured.card1.title': 'Devocional Diario',
+                'featured.card1.text': 'Comienza tu día con devocionales inspiradores.',
+                'featured.card1.cta': 'Leer Más',
+                'featured.card2.title': 'Guías de Estudio',
+                'featured.card2.text': 'Guías completas para una comprensión más profunda de la Biblia.',
+                'featured.card2.cta': 'Ver Guías',
+                'featured.card3.title': 'Rincón Infantil',
+                'featured.card3.text': 'Lecciones bíblicas divertidas e interactivas para niños.',
+                'featured.card3.cta': 'Comenzar',
+                'footer.quickLinks': 'Enlaces Rápidos',
+                'footer.resources': 'Recursos',
+                'footer.connect': 'Conectar',
+                'footer.devotionals': 'Devocionales Diarios',
+                'footer.studyGuides': 'Guías de Estudio',
+                'footer.kids': 'Rincón Infantil',
+                'footer.copyright': 'Todos los derechos reservados.'
+            },
+            ht: {
+                'nav.oldTestament': 'Ansyen Testaman',
+                'nav.newTestament': 'Nouvo Testaman',
+                'nav.bibleStudy': 'Etid Bib',
+                'nav.donate': 'Fè yon Don',
+                'nav.contact': 'Kontakte',
+                'hero.title': 'Byenveni nan BibleMee',
+                'hero.subtitle': 'Eksplore Bib la atravè zouti etid entèraktif, devosyonèl, ak kontni odyo. Pafè pou timoun ak granmoun.',
+                'hero.cta1': 'Kòmanse Li',
+                'hero.cta2': 'Resous Etid',
+                'search.title': 'Chèche nan Bib la',
+                'search.button': 'Chèche',
+                'featured.title': 'Kontni Vedèt',
+                'featured.subtitle': 'Dekouvri resous etid biblik ki pi popilè nou yo',
+                'featured.card1.title': 'Devosyonèl Chak Jou',
+                'featured.card1.text': 'Kòmanse jounen w ak devosyonèl ki enspire.',
+                'featured.card1.cta': 'Li Plis',
+                'featured.card2.title': 'Gid Etid',
+                'featured.card2.text': 'Gid konplè pou yon konpreyansyon pi pwofon Bib la.',
+                'featured.card2.cta': 'Wè Gid yo',
+                'featured.card3.title': 'Kwen Timoun',
+                'featured.card3.text': 'Leson Bib amizan ak entèraktif pou timoun.',
+                'featured.card3.cta': 'Kòmanse',
+                'footer.quickLinks': 'Lyen Rapid',
+                'footer.resources': 'Resous',
+                'footer.connect': 'Konekte',
+                'footer.devotionals': 'Devosyonèl Chak Jou',
+                'footer.studyGuides': 'Gid Etid',
+                'footer.kids': 'Kwen Timoun',
+                'footer.copyright': 'Tout dwa rezève.'
+            }
+        };
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize language
+            const browserLang = navigator.language.split('-')[0];
+            const savedLang = localStorage.getItem('language');
+            const defaultLang = savedLang || (translations[browserLang] ? browserLang : 'en');
+            const languageSelect = document.getElementById('languageSelect');
+            
+            if (languageSelect) {
+                // Set initial language
+                languageSelect.value = defaultLang;
+                updateLanguage(defaultLang);
+
+                // Language switcher event listener
+                languageSelect.addEventListener('change', (e) => {
+                    const newLang = e.target.value;
+                    updateLanguage(newLang);
+                    localStorage.setItem('language', newLang);
+                });
+            }
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+
+        function updateLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' && element.type === 'search') {
+                        element.placeholder = translations[lang][key];
+                    } else if (element.tagName === 'A' && element.classList.contains('btn')) {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Update select element to show current language
+            const languageSelect = document.getElementById('languageSelect');
+            if (languageSelect) {
+                languageSelect.value = lang;
+            }
+
+            // Store language preference
+            try {
+                localStorage.setItem('language', lang);
+            } catch (e) {
+                console.warn('Could not save language preference:', e);
+            }
+        }
+    </script>
+</body>
+</html>
